@@ -1,26 +1,23 @@
 import React from "react";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import fire from "./Fire";
 import firebase from "firebase";
+import {userChange} from "../redux/actions";
+import brokenImg from '../images/broken-img.png';
 
 function UserPage() {
 
     const [userItems, getItems] = React.useState([]);
+    const getUserItems = useSelector(state => state.currentUser.userItems);
     const userId = useSelector(state => state.currentUser.id);
+    const getUserChange = useSelector(state => state.userChange);
+    const dispatch = useDispatch();
     const db = fire.firestore();
 
     React.useEffect(() => {
 
-        db.collection("user").get().then((snapshot) => {
-            snapshot.forEach(doc => {
-                const obj = doc.data();
-
-                const items = obj.user_collection;
-
-                getItems(items);
-            });
-        });
-    }, [db]);
+        getItems(getUserItems)
+    }, [db, getUserChange, userItems]);
 
     const removeFromUserItems = (item) => {
         db.collection('user').doc(userId).update({
@@ -28,26 +25,33 @@ function UserPage() {
         }).then((snapshot) => {
             console.log('removed' + item);
         }).catch((err) => {
-           console.log(err);
+           alert(err);
         });
     };
 
     const userItemList = userItems.map((it, idx) =>
         <div key={idx} className={'item'}>
-            <img src={it.image} alt='' height={'100px'} width={'100px'}/>
-            <h2>{it.name}</h2>
-            <p>{it.description}</p>
-            <button onClick={() => {removeFromUserItems({
-                id: it.id,
-                name: it.name,
-                description: it.description,
-                image: it.image
-            })}}>Add to your items</button>
+            <img src={it.image} onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = brokenImg}
+            } alt='' height={'100px'} width={'100px'}/>
+            <div>
+                <h2>{it.name}</h2>
+                <p>{it.description}</p>
+                <button onClick={() => {removeFromUserItems({
+                    id: it.id,
+                    name: it.name,
+                    description: it.description,
+                    image: it.image
+                });
+                dispatch(userChange());
+                }}>Remove item</button>
+            </div>
         </div>
     );
 
     return(
-        <div>
+        <div className={'item-container'}>
             {userItems.length < 1 ? 'Make sure to add an item to your list!' : userItemList}
         </div>
     )

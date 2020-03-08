@@ -31,9 +31,9 @@ function Admin() {
     };
 
     return(
-        <div>
+        <div className={'admin'}>
             <h2>Hello admin</h2>
-            <p>add a user to the database</p>
+            <p>Add a user to the database</p>
             <label htmlFor="name">Name</label>
             <input type="text" name={'name'} value={itemText.name} onChange={handleChange('name')}/>
             <label htmlFor="desc">Description</label>

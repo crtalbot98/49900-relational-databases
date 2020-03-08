@@ -28,4 +28,27 @@
 
 .item{
   border-bottom: 2px solid #dad7da;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.item div{
+  text-align: right;
+  width: 20em;
+}
+
+.admin{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 40em;
+  height: 50em;
+}
+
+.admin input, button{
+  height: 2em;
 }

@@ -13,8 +13,21 @@ export const addUser = (value) => {
     }
 };
 
+export const getUserItems = (value) => {
+    return{
+        type: 'GET_USER_ITEMS',
+        items: value
+    }
+};
+
 export const dbChange = () => {
     return{
         type: "DB_CHANGE"
+    }
+};
+
+export const userChange = () => {
+    return{
+        type: "USER_CHANGE"
     }
 };

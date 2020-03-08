@@ -2,9 +2,11 @@ const initState = {
 
     currentUser: {
         id: '',
-        name: 'No user'
+        name: 'No user',
+        userItems: []
     },
     change: false,
+    userChange: false,
     items: []
 };
 
@@ -23,8 +25,9 @@ const rootReducer = (state = initState, action) => {
         return{
             ...state,
             currentUser: {
+                ...state.currentUser,
                 id: action.id,
-                name: action.name
+                name: action.name,
             }
         }
     }
@@ -34,6 +37,25 @@ const rootReducer = (state = initState, action) => {
         return{
             ...state,
             change: !state.change
+        }
+    }
+
+    if(action.type === 'USER_CHANGE'){
+
+        return{
+            ...state,
+            userChange: !state.userChange
+        }
+    }
+
+    if(action.type === 'GET_USER_ITEMS'){
+
+        return{
+            ...state,
+            currentUser: {
+                ...state.currentUser,
+                userItems: action.items
+            }
         }
     }
 
