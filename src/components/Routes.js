@@ -6,14 +6,16 @@ import {
 import Home from "./Home";
 import Admin from "./Admin";
 import UserPage from "./UserPage";
+import Item from "./Item";
 
 function Routes () {
 
-    return(
+    return (
         <Switch>
             <Route exact path={'/'} component={Home}/>
             <Route path={'/user'} component={UserPage}/>
             <Route path={'/admin'} component={Admin}/>
+            <Route path={'/item/:id'} component={Item}/>
         </Switch>
     );
 }

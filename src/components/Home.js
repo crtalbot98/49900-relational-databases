@@ -4,6 +4,7 @@ import fire from "./Fire";
 import firebase from "firebase";
 import {userChange} from "../redux/actions";
 import brokenImg from '../images/broken-img.png';
+import {Link} from "react-router-dom";
 
 function Home() {
 
@@ -54,6 +55,7 @@ function Home() {
                     });
                         dispatch(userChange());
                     }}>Add to your items</button>}
+                    <Link to={{pathname: `/item/${i.id}`}}>View Item</Link>
                 </div>
             </div>
     );

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e2083fb-940a-4cf5-9d7e-ca24a48b4cc6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/Item.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +84,7 @@
       <workItem from="1583460185676" duration="3427000" />
       <workItem from="1583520231420" duration="18384000" />
       <workItem from="1583618429060" duration="15427000" />
-      <workItem from="1583681649927" duration="4029000" />
+      <workItem from="1583681649927" duration="7648000" />
     </task>
     <servers />
   </component>

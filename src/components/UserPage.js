@@ -4,6 +4,7 @@ import fire from "./Fire";
 import firebase from "firebase";
 import {userChange} from "../redux/actions";
 import brokenImg from '../images/broken-img.png';
+import {Link} from "react-router-dom";
 
 function UserPage() {
 
@@ -45,6 +46,7 @@ function UserPage() {
                 });
                 dispatch(userChange());
                 }}>Remove item</button>
+                <Link to={{pathname: `/item/${it.id}`}}>View Item</Link>
             </div>
         </div>
     );
