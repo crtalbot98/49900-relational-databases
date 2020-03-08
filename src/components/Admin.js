@@ -40,7 +40,7 @@ function Admin() {
             <input type="text" name={'desc'} value={itemText.description} onChange={handleChange('description')}/>
             <label htmlFor="image">Image</label>
             <input type="text" name={'image'} value={itemText.image} onChange={handleChange('image')}/>
-            <button onClick={() => {
+            <button onMouseUp={() => {
                 submit();
                 dispatch(dbChange())
             }}>Submit</button>

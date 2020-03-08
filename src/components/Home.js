@@ -46,7 +46,7 @@ function Home() {
                     {newUserItems.some(item => item.id === i.id) ?
                         <p>Item in your collection</p>
                         :
-                        <button onClick={() => {addToUserItems({
+                        <button onMouseUp={() => {addToUserItems({
                         id: i.id,
                         name: i.name,
                         description: i.description,

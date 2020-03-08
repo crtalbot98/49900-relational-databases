@@ -16,14 +16,13 @@ function UserPage() {
 
     React.useEffect(() => {
 
-        getItems(getUserItems)
-    }, [db, getUserChange, userItems]);
+        getItems(getUserItems);
+        console.log('removed');
+    }, [db, getUserChange, getUserItems]);
 
     const removeFromUserItems = (item) => {
         db.collection('user').doc(userId).update({
             user_collection: firebase.firestore.FieldValue.arrayRemove(item)
-        }).then((snapshot) => {
-            console.log('removed' + item);
         }).catch((err) => {
            alert(err);
         });
@@ -38,7 +37,7 @@ function UserPage() {
             <div>
                 <h2>{it.name}</h2>
                 <p>{it.description}</p>
-                <button onClick={() => {removeFromUserItems({
+                <button onMouseUp={() => {removeFromUserItems({
                     id: it.id,
                     name: it.name,
                     description: it.description,
