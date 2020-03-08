@@ -12,7 +12,6 @@ function Home() {
     const userId = useSelector(state => state.currentUser.id);
     const [updatedItems, itemCheck] = React.useState([]);
     const [newUserItems, userItemCheck] = React.useState([]);
-    const [itemAdded, checkItem] = React.useState(false);
     const dispatch = useDispatch();
     const db = fire.firestore();
 
@@ -35,9 +34,6 @@ function Home() {
         });
     };
 
-    console.log(updatedItems);
-    console.log(userItems);
-
     const itemList = updatedItems.map((i, idx) =>
             <div key={idx} className={'item'}>
                 <img src={i.image} onError={(e) => {
@@ -47,7 +43,7 @@ function Home() {
                 <div>
                     <h2>{i.name}</h2>
                     <p>{i.description}</p>
-                    {newUserItems.some(item => item.id === i.id) || itemAdded ?
+                    {newUserItems.some(item => item.id === i.id) ?
                         <p>Item in your collection</p>
                         :
                         <button onClick={() => {addToUserItems({
@@ -57,7 +53,6 @@ function Home() {
                         image: i.image
                     });
                         dispatch(userChange());
-                        checkItem(true);
                     }}>Add to your items</button>}
                 </div>
             </div>
