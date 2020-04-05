@@ -1,7 +1,11 @@
+body{
+  background-color: #aadad0;
+}
+
 .navBar {
   height: 4em;
   width: 100%;
-  background-color: #dad7da;
+  background-color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,6 +32,7 @@
 
 .item{
   border-bottom: 2px solid #dad7da;
+  background-color: #ffffff;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -41,16 +46,18 @@
 }
 
 .admin{
-  margin: 0 auto;
+  padding: 2em;
+  background-color: #FFFFFF;
+  margin: 3em auto;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   width: 40em;
-  height: 50em;
+  height: 40em;
 }
 
 .admin input, button{
-  height: 2em;
+  height: 3em;
 }
 
 .itemPage{
@@ -61,4 +68,63 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.loginForm{
+  background-color: #FFFFFF;
+  margin: 4em auto;
+  width: 40em;
+  height: 40em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2em;
+}
+
+.loginForm h1{
+  align-self: center;
+  margin: 0 0 2em 0;
+}
+
+.loginForm div{
+  display: flex;
+  flex-direction: column;
+}
+
+button{
+  background-color: #8B2635;
+  border: none;
+  height: 3em;
+  color: #FFFFFF;
+  border-radius: 1.5em;
+  padding: 0 2em 0 2em;
+}
+
+button:hover{
+  background-color: #FFFFFF;
+  border: 2px solid #8B2635;
+  color: #8B2635;
+}
+
+.loginForm input{
+  height: 3em;
+}
+
+.loginForm a{
+  text-decoration: none;
+  color: #000000;
+  align-self: center;
+}
+
+.loginForm a:hover{
+  color: #8B2635;
+}
+
+.userCreds{
+  margin-left: 2em;
+}
+
+.itemBtn{
+  float: left;
+  text-decoration: none;
 }

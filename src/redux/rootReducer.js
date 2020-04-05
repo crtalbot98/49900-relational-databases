@@ -1,13 +1,12 @@
 const initState = {
 
     currentUser: {
-        id: '',
-        name: 'No user',
-        userItems: []
+        id: "",
+        name: ""
     },
     change: false,
     userChange: false,
-    items: []
+    userSignedIn: false
 };
 
 const rootReducer = (state = initState, action) => {
@@ -54,8 +53,16 @@ const rootReducer = (state = initState, action) => {
             ...state,
             currentUser: {
                 ...state.currentUser,
-                userItems: action.items
+                items: action.items
             }
+        }
+    }
+
+    if(action.type === "CHANGE_USER_SIGNIN"){
+
+        return{
+            ...state,
+            userSignedIn: action.signIn
         }
     }
 

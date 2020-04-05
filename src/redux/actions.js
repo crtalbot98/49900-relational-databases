@@ -8,8 +8,8 @@ export const addItems = (value) => {
 export const addUser = (value) => {
     return{
         type: "ADD_USER",
-        id: value.id,
-        name: value.name,
+        id: value.uid,
+        name: value.displayName,
     }
 };
 
@@ -29,5 +29,12 @@ export const dbChange = () => {
 export const userChange = () => {
     return{
         type: "USER_CHANGE"
+    }
+};
+
+export const userSignIn = (check) => {
+    return{
+        type: "CHANGE_USER_SIGNIN",
+        signIn: check
     }
 };

@@ -2,28 +2,46 @@ import React from "react";
 import {useSelector, useDispatch} from "react-redux";
 import fire from "./Fire";
 import firebase from "firebase";
-import {userChange} from "../redux/actions";
+import {getUserItems, userChange} from "../redux/actions";
 import brokenImg from '../images/broken-img.png';
 import {Link} from "react-router-dom";
 
 function UserPage() {
 
     const [userItems, getItems] = React.useState([]);
-    const getUserItems = useSelector(state => state.currentUser.userItems);
+    const [getUserId, changeUserId] = React.useState("");
     const userId = useSelector(state => state.currentUser.id);
-    const getUserChange = useSelector(state => state.userChange);
+    const userName = useSelector(state => state.currentUser.name);
+    const userItemChange = useSelector(state => state.userChange);
     const dispatch = useDispatch();
     const db = fire.firestore();
 
+    const signOut = () => {
+        fire.auth().signOut().then(() => {
+
+        }).catch((err) => {
+            console.log(err);
+        })
+    };
+
     React.useEffect(() => {
 
-        getItems(getUserItems);
-        console.log('removed');
-    }, [db, getUserChange, getUserItems]);
+        changeUserId(userId);
+
+        if(getUserId.length > 0){
+            db.collection("user").doc(getUserId).get().then((snapshot) => {
+                const obj = snapshot.data();
+
+                const userItem = obj.items;
+
+                getItems(userItem);
+            });
+        }
+    }, [db, getUserId, userId, userItemChange]);
 
     const removeFromUserItems = (item) => {
         db.collection('user').doc(userId).update({
-            user_collection: firebase.firestore.FieldValue.arrayRemove(item)
+            items: firebase.firestore.FieldValue.arrayRemove(item)
         }).catch((err) => {
            alert(err);
         });
@@ -38,7 +56,7 @@ function UserPage() {
             <div>
                 <h2>{it.name}</h2>
                 <p>{it.description}</p>
-                <button onMouseUp={() => {removeFromUserItems({
+                <button className={'itemBtn'} onMouseUp={() => {removeFromUserItems({
                     id: it.id,
                     name: it.name,
                     description: it.description,
@@ -46,14 +64,20 @@ function UserPage() {
                 });
                 dispatch(userChange());
                 }}>Remove item</button>
-                <Link to={{pathname: `/item/${it.id}`}}>View Item</Link>
+               <Link to={{pathname: `/item/${it.id}`}}><button>View Item</button></Link>
             </div>
         </div>
     );
 
     return(
+        <div>
+            <div className={'userCreds'}>
+                <h2>Welcome, {userName}</h2>
+                <Link to={'signin'}><button onClick={signOut}>Sign out</button></Link>
+            </div>
         <div className={'item-container'}>
             {userItems.length < 1 ? 'Make sure to add an item to your list!' : userItemList}
+        </div>
         </div>
     )
 }

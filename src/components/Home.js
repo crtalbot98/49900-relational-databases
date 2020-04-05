@@ -2,15 +2,15 @@ import React from "react";
 import {useSelector, useDispatch} from "react-redux";
 import fire from "./Fire";
 import firebase from "firebase";
-import {userChange} from "../redux/actions";
+import {addItems, userChange} from "../redux/actions";
 import brokenImg from '../images/broken-img.png';
 import {Link} from "react-router-dom";
 
 function Home() {
 
-    const items = useSelector(state => state.items);
-    const userItems = useSelector(state => state.currentUser.userItems);
     const userId = useSelector(state => state.currentUser.id);
+    const userItemChange = useSelector(state => state.userChange);
+    const [getUserId, changeUserId] = React.useState("");
     const [updatedItems, itemCheck] = React.useState([]);
     const [newUserItems, userItemCheck] = React.useState([]);
     const dispatch = useDispatch();
@@ -18,18 +18,45 @@ function Home() {
 
     React.useEffect(() => {
 
-        itemCheck(items);
-    }, [items]);
+        changeUserId(userId);
 
-    React.useEffect(() => {
+        if(getUserId.length > 0) {
+            db.collection("user").doc(getUserId).get().then((snapshot) => {
+                const obj = snapshot.data();
 
-        userItemCheck(userItems);
-    }, [userItems]);
+                const userItem = obj.items;
 
+                userItemCheck(userItem);
+            });
+        }
+    }, [db, getUserId, userId, userItemChange]);
+
+    React.useEffect(()=> {
+        let newItems = [];
+
+        db.collection("items_master").get().then((snapshot) => {
+            snapshot.forEach(doc => {
+                const obj = doc.data();
+
+                let item = {
+                    description: obj.description,
+                    id: doc.id,
+                    image: obj.image,
+                    name: obj.name
+                };
+
+                newItems.push(item);
+            });
+
+            itemCheck(newItems);
+        });
+    }, [db, dispatch, userItemChange]);
 
     const addToUserItems = (item) => {
         db.collection('user').doc(userId).update({
-            user_collection: firebase.firestore.FieldValue.arrayUnion(item)
+            items: firebase.firestore.FieldValue.arrayUnion(item)
+        }).then(() => {
+            dispatch(userChange());
         }).catch((err) => {
             console.log(err);
         });
@@ -45,17 +72,16 @@ function Home() {
                     <h2>{i.name}</h2>
                     <p>{i.description}</p>
                     {newUserItems.some(item => item.id === i.id) ?
-                        <p>Item in your collection</p>
+                        <p className={'itemBtn'}>Item in your collection</p>
                         :
-                        <button onMouseUp={() => {addToUserItems({
+                        <button className={'itemBtn'} onMouseUp={() => {addToUserItems({
                         id: i.id,
                         name: i.name,
                         description: i.description,
                         image: i.image
                     });
-                        dispatch(userChange());
                     }}>Add to your items</button>}
-                    <Link to={{pathname: `/item/${i.id}`}}>View Item</Link>
+                    <Link to={{pathname: `/item/${i.id}`}}><button>View Item</button></Link>
                 </div>
             </div>
     );
